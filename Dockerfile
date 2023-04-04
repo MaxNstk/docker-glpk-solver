@@ -3,18 +3,20 @@ FROM python:3.10
 ADD . /code
 WORKDIR /code
 
-COPY  glpk-5.0.tar.gz glpk-5.0.tar.gz
-COPY  glpk-5.0.tar.gz.sig glpk-5.0.tar.gz.sig
+# COPY  glpk-5.0.tar.gz glpk-5.0.tar.gz
+# COPY  glpk-5.0.tar.gz.sig glpk-5.0.tar.gz.sig
 
 RUN pip install --upgrade pip && \ 
+    wget https://ftp.gnu.org/gnu/glpk/glpk-4.55.tar.gz && \ 
     pip install pyomo && \ 
-    tar -xzvf glpk-5.0.tar.gz 
-#     cd glpk-5.0 && \ 
-#     ./configure && \ 
-#    make install  
-CMD ["python", "main.py"]
+    tar -xzvf glpk-5.0.tar.gz && \ 
+    cd glpk-5.0 && \ 
+    ./configure && \ 
+    make install  && \
+    echo glpsol
 
-# wget https://ftp.gnu.org/gnu/glpk/glpk-4.55.tar.gz && \ 
+CMD ["python", "investidor.py"]
+
 # RUN wget https://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz.sig
 
 # RUN gpg --verify glpk-4.65.tar.gz.sig glpk-4.65.tar.gz
