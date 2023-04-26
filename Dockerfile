@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.8
 
 ADD . /code
 WORKDIR /code
@@ -6,16 +6,20 @@ WORKDIR /code
 # COPY  glpk-5.0.tar.gz glpk-5.0.tar.gz
 # COPY  glpk-5.0.tar.gz.sig glpk-5.0.tar.gz.sig
 
-RUN pip install --upgrade pip && \ 
-    wget https://ftp.gnu.org/gnu/glpk/glpk-4.55.tar.gz && \ 
-    pip install pyomo && \ 
-    tar -xzvf glpk-5.0.tar.gz && \ 
-    cd glpk-5.0 && \ 
-    ./configure && \ 
-    make install  && \
-    echo glpsol
+RUN pip install --upgrade pip
+RUN pip install pyomo
+RUN wget https://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz
+RUN tar -xzvf glpk-4.65.tar.gz
 
-CMD ["python", "investidor.py"]
+WORKDIR /code/glpk-4.65
+
+RUN bash -c 'ls'
+RUN ./configure
+RUN make install
+
+WORKDIR /code
+
+# CMD ["python", "investidor.py"]
 
 # RUN wget https://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz.sig
 

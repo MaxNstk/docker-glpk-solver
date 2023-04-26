@@ -1,11 +1,20 @@
 version: '3'
 services:
-  web:
+  glpk:
+    container_name: glpk-solver
+    stdin_open: true
     build: 
       context: .
-      dockerfile: ./Dockerfile 
-    # command: >
-    #             sh -c "
-    #             pip install pyomo &&
-    #             python .\main.py
-    #             "
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/code
+  execution:
+    build:
+      context: .
+    command: python investidor.py 
+
+
+  # python:
+  #   depends_on:
+  #   - glpk
+  #   command: python investidor.py

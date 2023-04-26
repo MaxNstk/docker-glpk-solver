@@ -13,9 +13,6 @@ def objective_function(model):
 
 model.obj = Objective(rule = objective_function, sense = maximize)
 
-while True:
-    print
-
 # Restrições
 def amount(model):
     return model.a + model.b <= 5000
@@ -33,6 +30,10 @@ model.con1 = Constraint(rule = amount)
 model.con2 = Constraint(rule = max_a)
 model.con3 = Constraint(rule = max_b)
 model.con4 = Constraint(rule = proportion)
+
+print('sdsaad')
+print('sd')
+print('sd')
 
 # Solução
 opt = SolverFactory('glpk')
