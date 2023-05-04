@@ -6,15 +6,6 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
-    volumes:
-      - .:/code
-  execution:
-    build:
-      context: .
     command: python investidor.py 
-
-
-  # python:
-  #   depends_on:
-  #   - glpk
-  #   command: python investidor.py
+    volumes:
+      - .:/code    

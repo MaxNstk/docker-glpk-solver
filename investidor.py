@@ -32,8 +32,6 @@ model.con3 = Constraint(rule = max_b)
 model.con4 = Constraint(rule = proportion)
 
 print('sdsaad')
-print('sd')
-print('sd')
 
 # Solução
 opt = SolverFactory('glpk')
