@@ -1,9 +1,14 @@
 version: '3'
 services:
-  my-service:
-    build:
+  glpk:
+    container_name: glpk-solver
+    stdin_open: true
+    build: 
       context: .
-      dockerfile: Dockerfile
-    command: python arquivos_profesor/problema_mochila/mochila.py
+      dockerfile: ./Dockerfile
+    command: python arquivos_professor/problema_mochila/mochila.py 
     volumes:
-      - ./data:/code/data
+      - .:/code
+      - glpk-data:/data
+volumes:
+  glpk-data:
