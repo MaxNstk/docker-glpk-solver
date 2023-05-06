@@ -2,18 +2,14 @@ FROM python:3.10
 ADD . /code
 WORKDIR /code
 
-# Only upgrade pip and install pyomo if necessary
-RUN if [ ! -f "glpk-5.0.tar.gz" ]; then \
-      pip install --upgrade pip; \
-      pip install pyomo; \
-    fi
-
 # Only download and install GLPK if the tarball doesn't exist
-RUN if [ -f "glpk-5.0.tar.gz" ]; then \
+RUN if [ -f "/code/data/glpk-5.0" ]; then \
       echo "GLPK found, skipping installation"; \
     else \
-      wget https://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz; \
-      tar -xzvf glpk-5.0.tar.gz; \
+      pip install --upgrade pip; \
+      pip install pyomo; \
+      wget https://ftp.gnu.org/gnu/glpk/glpk-5.0.tar.gz -P /code/data; \
+      tar -xzvf glpk-5.0.tar.gz; -C /code/data; \
       cd glpk-5.0; \
       ./configure; \
       make install; \
@@ -21,6 +17,7 @@ RUN if [ -f "glpk-5.0.tar.gz" ]; then \
     fi
 
 WORKDIR /code
+
 COPY . .
 
 # RUN pip install --upgrade pip

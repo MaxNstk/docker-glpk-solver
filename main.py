@@ -10,9 +10,6 @@ model.x1 = Var(domain = NonNegativeReals)
 model.x2 = Var(domain = NonNegativeReals)
 model.x3 = Var(domain = NonNegativeReals)
 
-while True:
-    print
-
 # Função objetivo
 model.obj = Objective(expr = 0.32 * model.x1 + 0.25 * model.x2 + 0.05 * model.x3, sense = minimize)
 
