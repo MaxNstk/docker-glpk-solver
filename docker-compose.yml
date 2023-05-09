@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
-    command: python arquivos_professor/problema_mochila/mochila.py 
+    command: python arquivos_professor/caminhos_minimos/transporte_binario.py 
     volumes:
       - .:/code
       - glpk-data:/data
