@@ -6,7 +6,8 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
-    command: python arquivos_professor/caminhos_minimos/transporte_binario.py 
+    command: python arquivos_professor/maximum_divesrity/maximus_diversity_transporte.py 
+    # command: python arquivos_professor/caminhos_minimos/transporte_binario/transporte_binario_max.py
     volumes:
       - .:/code
       - glpk-data:/data

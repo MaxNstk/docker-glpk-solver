@@ -40,18 +40,22 @@ model.obj = Objective(rule=objective_function, sense=minimize)
 model.con = ConstraintList()
 
 for i in range(n):
-    for j in range(m):
-        expected = 1 if i == s else -1 if i ==t else 0
-        model.con.add(sum(model.x[i,k] for k in range(m)) - sum(model[l,j] for l in range(n)) == expected)
+    # a soma dos sucessores de i - a soma dos sucessores de j = R tem de ser:
+    # 1 caso o nó atual seja o de partida, afinal somente sai um acminho dele
+    # -1 se for o de chegada, afinal tem de chegar somente 1
+    # 0 se for intermediário, somente chega 1 e somente sai um
+    expected = 1 if i == s else -1 if i ==t else 0
+    model.con.add(sum(model.x[i,j] for j in range(m)) - sum(model.x[j,i] for j in range(n)) == expected)
 
-# for i in range(n):
-#     expected = 1 if i == s else -1 if i ==t else 0
-#     model.con.add(sum(graph[i,j] for j in range (m)) - sum(graph[j,i] for j in range(n)) == expected)
+    for j in range(n):
+        # caso o valor do caminho seja 0, não há caminho
+        if graph[i][j] == 0:
+            model.con.add(model.x[i,j] == 0)
 
 # Solução
 solver = SolverFactory('glpk')
 solver.solve(model).write()
 for i in range(n):
-    print()
     for j in range(n):
-        print(model.y[i,j]())
+        if model.x[i,j]() == 0: continue
+        print(f'{i+1}-->{j+1} - Custo: {graph[i][j]}')
