@@ -19,18 +19,10 @@ graph = [
     [0, 0, 0, 0, 0, 0, 0]
 ]
 
-d = [[0,4,5,0,0,0],
-     [4,0,0,7,0,0],
-     [5,0,0,3,0,0],
-     [0,7,3,0,8,2],
-     [0,0,0,8,0,3],
-     [0,0,0,2,3,0]]
-
 from pyomo.environ import *
 
 model = ConcreteModel()
 
-# variavel para saber se esse caminho será utilizado
 model.x = Var([i for i in range(n)], domain=Binary)
 
 # buscamos a maior variedade 
@@ -45,14 +37,9 @@ model.obj = Objective(rule=objective_function, sense=maximize)
 
 model.con = ConstraintList()
 
-# temos de nos restingir aos elementos do subconjunto m
-# os caminhos precorridoscorresponderão a quantidade nós -1
-#.->.->., 3 nós, dois caminhos
 model.con.add(sum(model.x[i] for i in range(n)) == m)
 
-# caso o valor do caminho seja 0, não há caminho, restringindo a somente aqueles que existem de fato
-
-# Solução
+# Solução GLPK N FUNCIONA, TEM QUE USAR OUTRO, NÃO É LINEAR, PROBLEMA QUADRÁTICO
 solver = SolverFactory('glpk')
 solver.solve(model).write()
 for i in range(n):

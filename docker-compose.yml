@@ -6,10 +6,13 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
-    # command: python arquivos_professor/condominios_estradas/condominios.py
-    command: python arquivos_professor/big-m/big-m.py
-    # command: python arquivos_professor/maximum_divesrity/maximus_diversity_transporte.py 
-    # command: python arquivos_professor/caminhos_minimos/transporte_binario/transporte_binario_max.py
+    command: python exercicios/caixeiro_viajante/caixeiro.py
+    # command: python exercicios/caixeiro_viajante/caixeiro_max.py
+    # command: python exercicios/knapsack_problem/mochila_max.py
+    # command: python exercicios/condominios_estradas/cobertura_vertices.py
+    # command: python exercicios/big-m/big-m.py
+    # command: python exercicios/maximum_divesrity/maximus_diversity_transporte.py 
+    # command: python exercicios/caminhos_minimos/transporte_binario/transporte_binario_max.py
     volumes:
       - .:/code
       - glpk-data:/data
